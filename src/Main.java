@@ -1,4 +1,4 @@
-import search.stack.StackExample;
+import stack.StackExample;
 
 public class Main {
 
