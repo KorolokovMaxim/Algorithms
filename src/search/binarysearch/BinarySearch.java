@@ -2,36 +2,68 @@ package search.binarysearch;
 
 public class BinarySearch {
 
-    private long[] array; // link for array
-    private int countElement; // number element's
+    private  final long[] a;
+    private int nElems;
 
     public BinarySearch(int max) {
-        array = new long[max]; // create array
-        countElement = 0;
+        a = new long[max];
+        nElems = 0;
     }
 
-    public int size(){
-        return countElement;
+    public int size() {
+        return nElems;
     }
 
-    public int find(long searchKey){ // find number
+    public int find(long searchKey) {
         int lowerBound = 0;
-        int upperBound = countElement - 1;
-        int currentInt;
+        int upperBound = nElems - 1;
+        int curIn;
 
-        while (true){
-            currentInt = (lowerBound + upperBound) / 2;
-            if(currentInt == searchKey){
-                return currentInt; // it is number
-            }else if(lowerBound > upperBound){
-                return countElement; // element not found
-            } else{
-              if(array[countElement] < searchKey){
-                  lowerBound = currentInt + 1; // searching upper bound
-              }else{
-                  upperBound = currentInt - 1; // searching lower bound
-              }
+        while (true) {
+            curIn = (lowerBound + upperBound) / 2;
+            if (a[curIn] == searchKey) {
+                return curIn;
+            } else if (lowerBound > upperBound) {
+                return nElems;
+            } else {
+                if (a[curIn] < searchKey) {
+                    lowerBound = curIn + 1;
+                } else {
+                    upperBound = curIn - 1;
+                }
             }
         }
     }
+
+    public void insert(long value) {
+        int j;
+        for (j = 0; j < nElems; j++) {
+            if (a[j] > value) {
+                break;
+            }
+        }
+        if (nElems - j >= 0) System.arraycopy(a, j, a, j + 1, nElems - j);
+        a[j] = value;
+        nElems++;
+    }
+
+    public boolean delete(long value) {
+        int j = find(value);
+        if (j == nElems) {
+            return false;
+        } else {
+            if (nElems - j >= 0) System.arraycopy(a, j + 1, a, j, nElems - j);
+            nElems--;
+            return true;
+        }
+    }
+
+    public void display(){
+        for (int i = 0; i < nElems; i++) {
+            System.out.println(a[i] + " ");
+        }
+        System.out.println(" ");
+    }
+
+
 }
